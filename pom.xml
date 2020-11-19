@@ -13,7 +13,9 @@
         <module>base-microservice-config2</module>
         <module>base-microservice-config3</module>
         <module>eureka-for-ha-config</module>
-        <module>base-microservice-bus</module>
+        <module>base-microservice-dashboard</module>
+        <module>base-microservice-turbine</module>
+        <module>base-microservice-zuul</module>
 
 
     </modules>
