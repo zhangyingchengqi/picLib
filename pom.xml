@@ -10,6 +10,12 @@
         <module>base-microservice-security</module>
         <module>base-microservice-eureka</module>
         <module>base-microservice-config</module>
+        <module>base-microservice-config2</module>
+        <module>base-microservice-config3</module>
+        <module>eureka-for-ha-config</module>
+        <module>base-microservice-bus</module>
+
+
     </modules>
     <name>mis-parent</name>
     <description>parent pom</description>

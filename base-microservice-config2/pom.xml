@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>base-microservice-config</artifactId>
-    <name>base-microservice-config</name>
+    <artifactId>base-microservice-config2</artifactId>
+    <name>base-microservice-config2</name>
 
     <dependencies>
         <!-- kafka -->
