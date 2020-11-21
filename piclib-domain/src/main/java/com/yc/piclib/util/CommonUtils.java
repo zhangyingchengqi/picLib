@@ -3,7 +3,7 @@ package com.yc.piclib.util;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.apache.log4j.Logger;
+import org.jboss.logging.Logger;
 
 import java.io.*;
 import java.lang.reflect.Array;

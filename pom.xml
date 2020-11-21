@@ -8,7 +8,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>base-microservice-security</module>
-        <module>base-microservice-eureka</module>
         <module>base-microservice-config</module>
         <module>base-microservice-config2</module>
         <module>base-microservice-config3</module>
