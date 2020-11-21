@@ -16,6 +16,7 @@
         <module>base-microservice-dashboard</module>
         <module>base-microservice-turbine</module>
         <module>base-microservice-zuul</module>
+        <module>piclib-domain</module>
 
 
     </modules>
