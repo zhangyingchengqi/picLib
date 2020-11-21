@@ -15,12 +15,14 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+
+//专用的测试配置类
 @Configuration
 @ComponentScan("com.yc")
 @EnableTransactionManagement
 public class DaoConfiguration {
 
-    @Bean
+    @Bean   //事件源
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
@@ -30,15 +32,14 @@ public class DaoConfiguration {
         return dataSource;
     }
 
-    @Bean
+    @Bean   //联接工厂
     public SqlSessionFactory sqlSessionFactoryBean(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-
         return bean.getObject();
     }
 
-    @Bean(name = "transactionManager")
+    @Bean(name = "transactionManager")   //事务管理器
     public PlatformTransactionManager createTransactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
@@ -50,12 +51,12 @@ public class DaoConfiguration {
         @Bean
         public MapperScannerConfigurer mapperScannerConfig() {
             MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-            mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactoryBean");
-            //扫描mapper位置
+            mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactoryBean");  //创建mapperbean时，要注入  sqlsessionfactorybean
+            //扫描   针对每个表的mapper位置
             mapperScannerConfigurer.setBasePackage("com.yc.piclib.dao.impl");
             //配置通用mappers
             Properties properties = new Properties();
-            //注册自定义mapper
+            //   指定通用mapper的位置，一定不能在   com.yc.piclib.dao.impl
             properties.setProperty("mappers", "com.yc.piclib.dao.MisBaseMapper");
             properties.setProperty("notEmpty", "false");
             properties.setProperty("IDENTITY", "MYSQL");

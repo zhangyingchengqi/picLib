@@ -6,3 +6,5 @@ create table pic
     path        varchar(2000),
     description varchar(2000)
 );
+
+-- path :   /xxxxx.jpg   ->   dfs://xxxxx:8888/xxx.jpg

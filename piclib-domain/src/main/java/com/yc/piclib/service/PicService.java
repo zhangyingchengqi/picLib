@@ -9,5 +9,11 @@ public interface PicService {
 
     public List<PicDomain> list();
 
+    /**
+     * 分页查找
+     *
+     * @param PicDomain
+     * @return
+     */
     public PageDomain<PicDomain> listByPage(PicDomain PicDomain);
 }

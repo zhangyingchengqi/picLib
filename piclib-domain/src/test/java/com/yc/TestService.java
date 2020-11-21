@@ -18,6 +18,7 @@ import java.util.List;
 public class TestService {
 
     private static final Logger logger = Logger.getLogger(TestService.class);
+
     @Autowired
     private PicService picService;
 

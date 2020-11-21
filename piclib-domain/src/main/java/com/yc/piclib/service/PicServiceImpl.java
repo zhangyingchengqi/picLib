@@ -1,5 +1,7 @@
 package com.yc.piclib.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yc.piclib.dao.impl.PicMapper;
 import com.yc.piclib.domain.PageDomain;
 import com.yc.piclib.domain.PicDomain;
@@ -24,20 +26,25 @@ public class PicServiceImpl implements PicService {
     @Override
     public List<PicDomain> list() {
         List<Pic> list = picMapper.selectAll();
+        //将实体类转为   domain
         List<PicDomain> r = new ArrayList<PicDomain>();
-        for (Pic p : list) {
+        for (Pic p : list) {   //  BeanUtils.copyBean(source, destination);
             PicDomain pd = new PicDomain(p.getId(), p.getPath(), p.getDescription());
             r.add(pd);
         }
         return r;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public PageDomain<PicDomain> listByPage(PicDomain picDomain) {
-        Example example = new Example(Pic.class);
+        PageHelper.startPage(picDomain.getPage(), picDomain.getPageSize());
+        Example example = new Example(Pic.class);   //条件
+        Example.Criteria c = example.createCriteria();
         if (CommonUtils.isNotNull(picDomain.getDescription())) {
-            example.createCriteria()
-                    .andLike("description", "%" + picDomain.getDescription() + "%");
+            //条件创建
+
+            c.andLike("description", "%" + picDomain.getDescription() + "%");
         }
         long total = picMapper.selectCountByExample(example);
 
@@ -46,12 +53,20 @@ public class PicServiceImpl implements PicService {
         pageDomain.setPage(picDomain.getPage());
         pageDomain.setPageSize(picDomain.getPageSize());
 
+        //TODO: 分页条件
 
-        List<Pic> list = picMapper.selectByExample(example);
+        c.andGreaterThanOrEqualTo("id", 1);
+        example.setOrderByClause("id desc");
+
+        PageInfo<Pic> pageInfo = new PageInfo<Pic>(picMapper.selectByExample(example));
+
+        //List<Pic> list = picMapper.selectByExample(example);
         List<PicDomain> r = new ArrayList<PicDomain>();
-        for (Pic p : list) {
-            PicDomain pd = new PicDomain(p.getId(), p.getPath(), p.getDescription());
-            r.add(pd);
+        if (pageInfo.getList() != null) {
+            for (Pic p : pageInfo.getList()) {
+                PicDomain pd = new PicDomain(p.getId(), p.getPath(), p.getDescription());
+                r.add(pd);
+            }
         }
         pageDomain.setData(r);
 
