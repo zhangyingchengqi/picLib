@@ -1,5 +1,6 @@
 package com.yc;
 
+import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -31,11 +32,13 @@ public class DaoConfiguration {
         dataSource.setPassword("a");
         return dataSource;
     }
+   
 
     @Bean   //联接工厂
     public SqlSessionFactory sqlSessionFactoryBean(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
+        bean.setPlugins(new PageInterceptor());
         return bean.getObject();
     }
 

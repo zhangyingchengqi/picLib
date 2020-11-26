@@ -22,9 +22,11 @@ public class PicServiceImpl implements PicService {
     @Autowired(required = false)
     private PicMapper picMapper;
 
+
     @Transactional(readOnly = true)
     @Override
     public List<PicDomain> list() {
+        //2. 缓存没有，则到数据库查
         List<Pic> list = picMapper.selectAll();
         //将实体类转为   domain
         List<PicDomain> r = new ArrayList<PicDomain>();
@@ -38,28 +40,21 @@ public class PicServiceImpl implements PicService {
     @Transactional(readOnly = true)
     @Override
     public PageDomain<PicDomain> listByPage(PicDomain picDomain) {
-        PageHelper.startPage(picDomain.getPage(), picDomain.getPageSize());
         Example example = new Example(Pic.class);   //条件
+        PageHelper.startPage(picDomain.getPage(), picDomain.getPageSize());
+        example.setOrderByClause("id desc");
         Example.Criteria c = example.createCriteria();
         if (CommonUtils.isNotNull(picDomain.getDescription())) {
             //条件创建
-
             c.andLike("description", "%" + picDomain.getDescription() + "%");
         }
-        long total = picMapper.selectCountByExample(example);
-
-        PageDomain<PicDomain> pageDomain = new PageDomain<PicDomain>();
-        pageDomain.setTotal(total);
-        pageDomain.setPage(picDomain.getPage());
-        pageDomain.setPageSize(picDomain.getPageSize());
-
-        //TODO: 分页条件
-
-        c.andGreaterThanOrEqualTo("id", 1);
-        example.setOrderByClause("id desc");
-
+        // long total = picMapper.selectCountByExample(example);
         PageInfo<Pic> pageInfo = new PageInfo<Pic>(picMapper.selectByExample(example));
 
+        PageDomain<PicDomain> pageDomain = new PageDomain<PicDomain>();
+        pageDomain.setTotal(pageInfo.getTotal());
+        pageDomain.setPage(pageInfo.getPageNum());
+        pageDomain.setPageSize(picDomain.getPageSize());
         //List<Pic> list = picMapper.selectByExample(example);
         List<PicDomain> r = new ArrayList<PicDomain>();
         if (pageInfo.getList() != null) {
@@ -69,8 +64,27 @@ public class PicServiceImpl implements PicService {
             }
         }
         pageDomain.setData(r);
-
         return pageDomain;
+    }
+
+    @Override
+    public void save(PicDomain picDomain) {
+        Pic pic = new Pic();
+        pic.setPath(picDomain.getPath());
+        pic.setDescription(picDomain.getDescription());
+        this.picMapper.insert(pic);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        this.picMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public PicDomain findOne(Integer id) {
+        Pic pic = this.picMapper.selectByPrimaryKey(id);
+        PicDomain picDomain = new PicDomain(pic.getId(), pic.getPath(), pic.getDescription());
+        return picDomain;
     }
 
 

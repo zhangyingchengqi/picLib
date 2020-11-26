@@ -23,4 +23,7 @@ public class PicDomain extends PageDomain {
         this.path = path;
         this.description = description;
     }
+
+    public PicDomain() {
+    }
 }

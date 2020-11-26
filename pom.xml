@@ -16,6 +16,8 @@
         <module>base-microservice-turbine</module>
         <module>base-microservice-zuul</module>
         <module>piclib-domain</module>
+        <module>piclib-restapi</module>
+        <module>piclib-client</module>
 
 
     </modules>
@@ -77,6 +79,14 @@
                 <artifactId>mapper-spring-boot-starter</artifactId>
                 <version>2.0.4</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 

@@ -4,7 +4,6 @@ package com.yc;
 import com.yc.piclib.domain.PageDomain;
 import com.yc.piclib.domain.PicDomain;
 import com.yc.piclib.service.PicService;
-import org.jboss.logging.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +11,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {DaoConfiguration.class})
 public class TestService {
 
-    private static final Logger logger = Logger.getLogger(TestService.class);
+    private static final Logger logger = Logger.getLogger(TestService.class.getName());
 
     @Autowired
     private PicService picService;
@@ -32,6 +32,7 @@ public class TestService {
     @Test
     public void testListByPage() {
         PicDomain picDomain = new PicDomain(1, "abc", "good");
+        picDomain.setPage(2);
         logger.info("调用PicService.listByPage");
         PageDomain<PicDomain> list = picService.listByPage(picDomain);
         System.out.println(list);

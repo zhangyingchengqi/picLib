@@ -16,4 +16,12 @@ public interface PicService {
      * @return
      */
     public PageDomain<PicDomain> listByPage(PicDomain PicDomain);
+
+    public void save(PicDomain picDomain);
+
+    public void delete(Integer id);
+
+    public PicDomain findOne(Integer id);
+
+
 }
