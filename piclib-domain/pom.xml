@@ -30,8 +30,9 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <scope>compile</scope>
+            <scope>compile</scope>    <!--  因为上线后服务器中自带了这个 servlet-api,所以它配置成 compile  -->
         </dependency>
+
         <!-- mybatis  -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -40,13 +41,9 @@
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
-            <!--            <exclusions>-->
-            <!--                <exclusion>-->
-            <!--                    <groupId>javax.persistence</groupId>-->
-            <!--                    <artifactId>persistence-api</artifactId>-->
-            <!--                </exclusion>-->
-            <!--            </exclusions>-->
         </dependency>
+
+        <!-- 持久化 -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
@@ -72,17 +69,15 @@
             <version>2.8.0</version>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter-data-jpa</artifactId>-->
-        <!--        </dependency>-->
 
+        <!-- druid数据源-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.1.21</version>
         </dependency>
 
+        <!-- 分页组件  -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>

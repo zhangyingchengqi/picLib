@@ -20,7 +20,7 @@ import java.util.Properties;
 //专用的测试配置类
 @Configuration
 @ComponentScan("com.yc")
-@EnableTransactionManagement
+@EnableTransactionManagement   //开启事务管理
 public class DaoConfiguration {
 
     @Bean   //事件源
@@ -32,13 +32,16 @@ public class DaoConfiguration {
         dataSource.setPassword("a");
         return dataSource;
     }
-   
+
 
     @Bean   //联接工厂
     public SqlSessionFactory sqlSessionFactoryBean(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setPlugins(new PageInterceptor());
+        //可以加入各种拦截器
+        PageInterceptor pi = new PageInterceptor();
+        //   可以加入其它的配置
+        bean.setPlugins(pi);    //加入分页的插件的拦截器
         return bean.getObject();
     }
 
@@ -48,9 +51,8 @@ public class DaoConfiguration {
     }
 
     @Configuration
-    @AutoConfigureAfter(DaoConfiguration.class)
+    @AutoConfigureAfter(DaoConfiguration.class)  //有顺序
     public static class MyBatisMapperScannerConfig {
-
         @Bean
         public MapperScannerConfigurer mapperScannerConfig() {
             MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
@@ -62,7 +64,7 @@ public class DaoConfiguration {
             //   指定通用mapper的位置，一定不能在   com.yc.piclib.dao.impl
             properties.setProperty("mappers", "com.yc.piclib.dao.MisBaseMapper");
             properties.setProperty("notEmpty", "false");
-            properties.setProperty("IDENTITY", "MYSQL");
+            properties.setProperty("IDENTITY", "MYSQL");   // 请注意数据库中的主键类型
             mapperScannerConfigurer.setProperties(properties);
 
             return mapperScannerConfigurer;
