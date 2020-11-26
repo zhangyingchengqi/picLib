@@ -25,12 +25,28 @@ public class PiclibRestController {
 
     @RequestMapping(value = "/{id}")
     public CompletableFuture<String> findById(@PathVariable Integer id) {
-        //非阻塞式异步编程方法。因为在web ui的微服务对rest api的调用中将使用这种高并发的编程方法，所以为了保证与调用端保持同步，这里也使用这种方法. 
+        // static CompletableFuture<U> supplyAsync(Supplier<U> supplier)
+        //   Supplier就是一个接口
+        //    接口中的方法:   T get();
+
+//        return CompletableFuture.supplyAsync(new Supplier() {
+//            @Override
+//            public Object get() {  //回调方法,   当请求有响应，由  jvm 调用.
+//                  PicDomain pic = picService.findOne(id);
+        //            Map<String, Object> map = new HashMap<>();
+        //            map.put("code", 1);
+        //            map.put("data", pic);
+        //            return new Gson().toJson(map);
+//            }
+//        });
+        //非阻塞式异步编程方法。因为在web ui的微服务对rest api的调用中将使用这种高并发的编程方法，所以为了保证与调用端保持同步，这里也使用这种方法.
         return CompletableFuture.supplyAsync(() -> {
             PicDomain pic = picService.findOne(id);
+            //协议
             Map<String, Object> map = new HashMap<>();
             map.put("code", 1);
             map.put("data", pic);
+            //map.put("msg","");
             return new Gson().toJson(map);
         });
     }

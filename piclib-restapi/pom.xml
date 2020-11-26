@@ -26,7 +26,6 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
-
         <!--消息总线-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

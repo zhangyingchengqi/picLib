@@ -16,8 +16,8 @@
         <appender-ref ref="stash"/>
     </appender>
 
-    <!-- show parameters for hibernate sql 专为 Hibernate 定制 -->
-    <logger name="org.apache.ibatis" level="TRACE"/>
+    <!-- mybatis及自己定义的类   -->
+    <logger name="org.apache.ibatis" level="DEBUG"/>
     <logger name="com.yc.piclib" level="DEBUG"/>
 
 
