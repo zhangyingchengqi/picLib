@@ -11,3 +11,8 @@ ribbon.ReadTimeout: 1000
 ribbon.OkToRetryOnAllOperations: true
 ribbon.MaxAutoRetriesNextServer: 2
 ribbon.MaxAutoRetries: 1
+
+---
+#spring devtools 更改类程序文件不使用热部署自动重启
+spring.devtools.restart.enabled: false
+spring.devtools.livereload.enabled: false
