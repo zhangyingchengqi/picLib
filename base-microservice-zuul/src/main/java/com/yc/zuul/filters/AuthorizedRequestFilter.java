@@ -9,6 +9,10 @@ import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import java.nio.charset.Charset;
 import java.util.Base64;
 
+/*
+现在我们要用zuul访问一个 有security保护的服务  这个服务要增加认证信息，那么就必须在其访问之前追加认证的头部操作，
+这样的功能需要通过zuul的过滤操作完成
+ */
 public class AuthorizedRequestFilter extends ZuulFilter {
     @Override
     public String filterType() {

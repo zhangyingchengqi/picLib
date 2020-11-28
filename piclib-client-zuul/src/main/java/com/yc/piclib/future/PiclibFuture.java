@@ -12,14 +12,15 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class PiclibFuture {
     @Autowired
-    private PiclibRestService piclibRestService;   //业务层
+    private PiclibRestService piclibRestService;
 
-    @Async   //异步调用
+    @Async
     public CompletableFuture<String> findById(Integer id) {
         return CompletableFuture.supplyAsync(() -> {
             return piclibRestService.findById(id);
         });
     }
+
 
     @Async
     public CompletableFuture<String> findPage(Integer page, Integer pageSize,
