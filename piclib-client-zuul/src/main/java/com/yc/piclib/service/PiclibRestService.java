@@ -29,21 +29,44 @@ public class PiclibRestService {
         return new Gson().toJson(map);
     }
 
-    @HystrixCommand(fallbackMethod = "findByIdFallback")
+    @HystrixCommand(fallbackMethod = "findAllFallback")
     public String findAll(Integer page, Integer pageSize,
                           String description) {
         return piclibClient.findAll(page, pageSize, description);
     }
 
-    @HystrixCommand(fallbackMethod = "findByIdFallback")
+    private String findAllFallback(Integer page, Integer pageSize,
+                                   String description) {
+        Map map = new HashMap();
+        map.put("code", "-1");
+        map.put("msg", "服务异常");
+        return new Gson().toJson(map);
+    }
+
+    @HystrixCommand(fallbackMethod = "createFallback")
     public String create(PicDomain picDomain) {
         return piclibClient.create(picDomain);
     }
 
-    @HystrixCommand(fallbackMethod = "findByIdFallback")
+    private String createFallback(PicDomain picDomain) {
+        Map map = new HashMap();
+        map.put("code", "-1");
+        map.put("msg", "服务异常，无法添加" + picDomain.getPath());
+        return new Gson().toJson(map);
+    }
+
+    @HystrixCommand(fallbackMethod = "deleteFallback")
     public String delete(Integer id) {
         return piclibClient.delete(id);
     }
 
+    private String deleteFallback(Integer id) {
+        Map map = new HashMap();
+        map.put("code", "-1");
+        map.put("msg", "服务异常，无法删除" + id);
+        return new Gson().toJson(map);
+    }
+
 
 }
+

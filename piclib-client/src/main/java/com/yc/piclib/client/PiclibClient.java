@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-@FeignClient(name = "microservice-provider",
+//在eureka上注册的服务名
+@FeignClient(name = "MICROSERVICE-PROVIDER-PICLIB",
         configuration = FeignClientConfig.class
 )  // 配置要按自定义的类FeignClientConfig
 public interface PiclibClient {
