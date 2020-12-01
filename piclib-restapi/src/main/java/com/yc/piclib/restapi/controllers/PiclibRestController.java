@@ -24,6 +24,7 @@ public class PiclibRestController {
     private PicService picService;
 
     @RequestMapping(value = "/{id}")
+    //  @HystrixCommand(fallbackMethod = "errorCallBack")   //模仿没有这个数据时，服务降级
     public CompletableFuture<String> findById(@PathVariable Integer id) {
         // static CompletableFuture<U> supplyAsync(Supplier<U> supplier)
         //   Supplier就是一个接口
@@ -51,9 +52,18 @@ public class PiclibRestController {
         });
     }
 
+//    //指定一个降级的方法
+//    public String errorCallBack(@PathVariable("id") Integer id) {
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("code", 404);
+//        map.put("msg", "查无此图片");
+//        //map.put("msg","");
+//        return new Gson().toJson(map);
+//    }
 
     //TODO: 用于测试异步与非异步的区别: test: local call
     @RequestMapping(value = "/test/{id}")
+    // @HystrixCommand(fallbackMethod = "errorCallBack2")
     public String testFindById(@PathVariable Integer id) {
         PicDomain pic = picService.findOne(id);
         Map<String, Object> map = new HashMap<>();
@@ -61,6 +71,14 @@ public class PiclibRestController {
         map.put("data", pic);
         return new Gson().toJson(map);
     }
+
+//    public String errorCallBack2(@PathVariable("id") Integer id) {
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("code", 404);
+//        map.put("msg", "查无此图片2, 此处没有用到future");
+//        //map.put("msg","");
+//        return new Gson().toJson(map);
+//    }
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public CompletableFuture<String> findAll(Integer page, Integer pageSize, String description) {

@@ -59,6 +59,7 @@ public class PicServiceImpl implements PicService {
         pageDomain.setTotal(pageInfo.getTotal());
         pageDomain.setPage(pageInfo.getPageNum());
         pageDomain.setPageSize(picDomain.getPageSize());
+        pageDomain.setTotalPages(pageInfo.getPages());
         //List<Pic> list = picMapper.selectByExample(example);
         List<PicDomain> r = new ArrayList<PicDomain>();
         //从pageInfo中取记录数

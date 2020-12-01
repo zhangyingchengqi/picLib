@@ -88,6 +88,12 @@
 
             </dependency>
 
+            <dependency>
+                <groupId>com.yc.picLib</groupId>
+                <artifactId>base-microservice-security</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

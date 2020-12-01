@@ -30,5 +30,9 @@ eureka:
     lease-expiration-duration-in-seconds: 90  #如果现在超过了5s的时间间隔( default: 90 s )
     lease-renewal-interval-in-seconds: 30
 
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
