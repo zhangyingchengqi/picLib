@@ -45,7 +45,7 @@
             sites: [], //定义一个数组
             all: 10, //总页数
             cur: 1,//当前页码
-            totalSize: 0,  //当前条数
+            totalSize: 0,  //总数据条数
             pageSize: 2  //每页多少条
         },
         mounted() {
@@ -55,7 +55,7 @@
         methods: {  //相当于js中定义函数
             //分页查询方法
             dataListFn: function (index) {
-                var page = index;
+                var page = index;   //index表示要查找的页面
                 var self = this;   //一定要注意这一句，在ajax中的this指的是ajax对象，而不是 vue的对象
                 $.ajax({
                     type: "POST",
@@ -68,7 +68,7 @@
                             self.sites = result.data.data;		//获取数据列表
                             self.all = result.data.totalPages;  //总页数
                             self.cur = result.data.page;		//当前页面
-                            self.totalSize = result.data.total;	//当前条数
+                            self.totalSize = result.data.total;	//  总数据条数
                         } else {
                             alert("查询失败," + yc.data.msg);
                         }
@@ -76,7 +76,7 @@
                 });
             },
             //分页
-            btnClick: function (data) {//页码点击事件
+            btnClick: function (data) {//页码点击事件    data就是页码
                 if (data != this.cur) {
                     this.cur = data
                 }
@@ -90,7 +90,7 @@
         },
 
         computed: {			//计算属性
-            //分页
+            //计算页码:    比如总数据有10页.
             indexs: function () {
                 var left = 1;
                 var right = this.all;
