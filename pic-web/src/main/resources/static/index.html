@@ -12,7 +12,8 @@
 
     <ul id="example-1">
         <li v-for="pic in sites">
-            <dt>{{ pic.path }}</dt>
+            <dt><img :src=`${pic.path}` width="200px" height="200px"/>
+            </dt>
             <dl>{{pic.id}}</dl>
             <dl>{{pic.description}}</dl>
         </li>

@@ -126,7 +126,6 @@ public class PiclibRestController {
     public CompletableFuture<String> delete(@PathVariable Integer id) throws Exception {
         return CompletableFuture.supplyAsync(() -> {
             picService.delete(id);
-
             logger.info("删除->ID=" + id);
             Map<String, Object> map = new HashMap<>();
             map.put("code", 1);

@@ -20,11 +20,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             throws Exception {
         auth.inMemoryAuthentication()
                 .passwordEncoder(new BCryptPasswordEncoder()).withUser("root")
-                .password(new BCryptPasswordEncoder().encode("a"))
+                .password(new BCryptPasswordEncoder().encode("zy"))
                 .roles("USER")
                 .and()
                 .withUser("admin")
-                .password(new BCryptPasswordEncoder().encode("a"))
+                .password(new BCryptPasswordEncoder().encode("zy"))
                 .roles("USER", "ADMIN");
     }
 
@@ -40,7 +40,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         //   book是权限       user不要权限
         //   不管是什么服务，只要是访问这个服务中的  "/actuator/hystrix.stream", "/turbine.stream",不用加权限验证
-        web.ignoring().antMatchers("/actuator/hystrix.stream", "/turbine.stream");
+        web.ignoring().antMatchers("/actuator/hystrix.stream", "/turbine.stream", "/yc-api");
     }
 
 

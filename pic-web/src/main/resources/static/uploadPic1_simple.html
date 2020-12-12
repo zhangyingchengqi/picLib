@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简单添加图片</title>
+</head>
+<body>
+
+<form action="/piclib/uploadPic" method="post" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td width="100" align="right">图片：</td>
+            <td><input type="file" name="pictureFile"/></td>
+        </tr>
+        <tr>
+            <td width="100" align="right">描述：</td>
+            <td><textarea name="description" cols="20" rows="20">good</textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit"/></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>
